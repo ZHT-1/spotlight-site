@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目工作流程 - spotlight-site</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #1a1a2e;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            color: #f0f0f0;
+        }
+        .subtitle {
+            color: #888;
+            margin-bottom: 36px;
+            font-size: 0.95rem;
+        }
+        .mermaid {
+            background: #16213e;
+            border-radius: 12px;
+            padding: 30px 20px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+            max-width: 800px;
+            width: 100%;
+        }
+        .repo-link {
+            margin-top: 32px;
+            color: #7aa2f7;
+            text-decoration: none;
+            font-size: 1.05rem;
+            border: 1px solid #7aa2f7;
+            padding: 10px 24px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .repo-link:hover {
+            background: #7aa2f7;
+            color: #1a1a2e;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔦 spotlight-site 工作流程</h1>
+    <p class="subtitle">从零到 GitHub 上线的完整步骤</p>
+    <div class="mermaid">
+graph TD
+    A["📁 新建项目文件夹<br/>D:/AI/Claude/Practice/spotlight-site"]:::start
+    B["📝 编写 index.html<br/>黑色背景 + 白色光晕 CSS<br/>JS 鼠标追踪 & 平滑动画"]:::code
+    C["📄 创建 README.md<br/>项目说明 & 使用方式"]:::doc
+    D["📄 创建 .gitignore<br/>忽略 IDE/OS 临时文件"]:::doc
+    E["🧪 本地测试<br/>浏览器打开 index.html<br/>验证交互效果"]:::test
+    F["🔧 git init<br/>初始化本地仓库"]:::git
+    G["📦 git add + commit<br/>提交 3 个文件<br/>Feat: 聚光灯交互网站"]:::git
+    H["🐙 gh auth login<br/>GitHub CLI 认证"]:::auth
+    I["🚀 gh repo create<br/>--source=. --public --push<br/>创建远程仓库并推送"]:::deploy
+    J["✅ 上线完成<br/>https://github.com/ZHT-1/spotlight-site"]:::done
+
+    A --> B
+    A --> C
+    B --> D
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+    G --> H
+    H --> I
+    I --> J
+
+    classDef start fill:#e0a82e,stroke:#f0c040,color:#1a1a2e
+    classDef code fill:#3b82f6,stroke:#60a5fa,color:#fff
+    classDef doc fill:#6366f1,stroke:#818cf8,color:#fff
+    classDef test fill:#22c55e,stroke:#4ade80,color:#fff
+    classDef git fill:#f97316,stroke:#fb923c,color:#fff
+    classDef auth fill:#a855f7,stroke:#c084fc,color:#fff
+    classDef deploy fill:#ef4444,stroke:#f87171,color:#fff
+    classDef done fill:#14b8a6,stroke:#2dd4bf,color:#fff
+    </div>
+    <a class="repo-link" href="https://github.com/ZHT-1/spotlight-site" target="_blank">
+        🔗 访问 GitHub 仓库 →
+    </a>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            themeVariables: {
+                fontSize: '15px',
+                fontFamily: "'Segoe UI', system-ui, sans-serif",
+            },
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis',
+            }
+        });
+    </script>
+</body>
+</html>
