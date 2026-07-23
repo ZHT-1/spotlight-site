@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotlight</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            background: #000;
+            cursor: none;
+        }
+
+        /* 鼠标周围的白色光晕 */
+        .spotlight {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            background: radial-gradient(
+                circle 120px at var(--x, 50%) var(--y, 50%),
+                rgba(255, 255, 255, 1) 0%,
+                rgba(255, 255, 255, 0.9) 10%,
+                rgba(255, 255, 255, 0.5) 30%,
+                rgba(255, 255, 255, 0.1) 60%,
+                rgba(0, 0, 0, 0.95) 100%
+            );
+        }
+
+        /* 页面上可以放一些隐藏内容，鼠标移上去才看得见 */
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #333;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            user-select: none;
+        }
+
+        .content h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.1em;
+        }
+
+        .content p {
+            font-size: 1.2rem;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="spotlight" id="spotlight"></div>
+
+    <div class="content">
+        <h1>SPOTLIGHT</h1>
+        <p>移动鼠标来探索这个页面</p>
+    </div>
+
+    <script>
+        const spotlight = document.getElementById('spotlight');
+        let x = window.innerWidth / 2;
+        let y = window.innerHeight / 2;
+        let targetX = x;
+        let targetY = y;
+
+        // 监听鼠标移动，更新目标位置
+        document.addEventListener('mousemove', (e) => {
+            targetX = e.clientX;
+            targetY = e.clientY;
+        });
+
+        // 触摸设备支持
+        document.addEventListener('touchmove', (e) => {
+            targetX = e.touches[0].clientX;
+            targetY = e.touches[0].clientY;
+        }, { passive: true });
+
+        // 使用 requestAnimationFrame 做平滑过渡
+        function animate() {
+            // 缓动插值，让光晕流畅跟随
+            x += (targetX - x) * 0.15;
+            y += (targetY - y) * 0.15;
+
+            spotlight.style.setProperty('--x', x + 'px');
+            spotlight.style.setProperty('--y', y + 'px');
+
+            requestAnimationFrame(animate);
+        }
+
+        // 鼠标离开窗口时光晕留在最后位置
+        document.addEventListener('mouseleave', () => {
+            // 保持最后位置不变
+        });
+
+        animate();
+    </script>
+</body>
+</html>
